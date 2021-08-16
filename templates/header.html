@@ -1,0 +1,32 @@
+{% load static %}
+<header>
+  <a href="/">
+    <img class="logo" src="{% static 'images/command_logo.png' %}" alt="logo" />
+  </a>
+  {% if 'id' in request.session %}  
+  <h2 class="d-inline-block col-4" align="left">
+    Success! Welcome, {{ captain.fname }} {{ captain.sname }} {{ captain.code }} {{ captain.id }}
+</h2>
+{% endif %}
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+  <nav>
+    <ul class="nav_links">
+
+        {% if 'id' in request.session %}
+        <li><a href="/logout">logout</a></a></li> 
+        {% else %}
+         <!-- <li><a href="/register">Sign Up</a></a></li>  -->
+        <!-- <li><a href="/cart">
+                <div class="cart-count">1</div>
+                <img class="cart" src="{% static 'images/cart.png' %}" alt="cart">
+            </a>
+        </li> -->
+        
+            
+        {% endif %}
+
+    </ul>
+  </nav>
+  <label for="nav-toggle" class="nav-toggle-label">
+  <span></span>
+</header>

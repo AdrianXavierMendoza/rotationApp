@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="{% static 'css/header.css' %}" />
+		<!-- <link rel="stylesheet" href="{% static 'css/coin.css' %}" type="text/css" /> -->
+		<link rel="stylesheet" href="{% static 'css/main.css' %}" />
+
+		{% block css %} {% endblock css %}
+
+		<link rel="icon" href="{% static 'images/command_logo.png' %}" />
+		<script type="text/javascript">
+			// var user = '{{request.session}}';
+
+			function getToken(name) {
+				let cookieValue = null;
+				if (document.cookie && document.cookie !== '') {
+					const cookies = document.cookie.split(';');
+					for (let i = 0; i < cookies.length; i++) {
+						const cookie = cookies[i].trim();
+						// Does this cookie string begin with the name we want?
+						if (cookie.substring(0, name.length + 1) === name + '=') {
+							cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+							break;
+						}
+					}
+				}
+				return cookieValue;
+			}
+
+			var csrftoken = getToken('csrftoken');
+
+			// 		function getCookie(name) {
+			// 			var cookieArr = document.cookie.split(';');
+			// 			for (var i = 0; i < cookieArr.length; i++) {
+			// 				var cookiePair = cookieArr[i].split('=');
+			// 				if (name == cookiePair[0].trim()) {
+			// 					return decodeURIComponent(cookiePair[1]);
+			// 				}
+			// 			}
+			// 			return null;
+			// 		}
+			// 		var cart = JSON.parse(getCookie('cart'));
+
+			//   if(cart == undefined){
+			//     cart = {}
+			//     console.log('Cart was created!')
+			//     document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+			//   }
+
+			//   console.log('Cart: ', cart)
+		</script>
+		<title>Musical Chairs</title>
+	</head>
+
+	<body>
+		{% include "header.html" %}
+
+		<div class="container">{% block content %} {% endblock content %}</div>
+	</body>
+	<script type="text/javascript" src="{% static 'js/command.js' %}"></script>
+</html>

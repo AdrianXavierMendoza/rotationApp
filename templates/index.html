@@ -1,0 +1,24 @@
+{% extends 'main.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css" />
+{% endblock %}{% block content %}
+
+<div class="content">
+	<div class="window">
+		{% if 'id' not in request.session %}
+
+		<a href="/register" class="pane">Register</a>
+		<a href="/login" class="pane">Login</a>
+
+		{% else %}
+
+		<a href="/command" class="pane">COMMAND</a>
+		<a href="/attendance" class="pane">ATTENDANCE</a>
+		<a href="/" class="pane"></a>
+		<a href="/" class="pane"></a>
+		<a href="/" class="pane"></a>
+		<a href="/" class="pane"></a>
+
+		{% endif %}
+	</div>
+</div>
+{% endblock %}

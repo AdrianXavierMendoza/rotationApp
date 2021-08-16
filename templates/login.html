@@ -1,0 +1,54 @@
+{% extends 'main.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/register_login.css' %}" type="text/css" />
+{% endblock %}{% block content %}
+
+			<div class="window">
+				{% if messages %}
+				<ul class="messages">
+					{% for message in messages %}
+					<li
+						{%
+						if
+						message.tags
+						%}
+						class="{{ message.tags }}"
+						{%
+						endif
+						%}
+					>
+						{{ message }}
+					</li>
+					{% endfor %}
+				</ul>
+				{% endif %}
+				<form action="/login_captain" method="POST">
+					<h1>Login</h1>
+					<div class="tagline">Sign in to access Roto</div>
+					{% csrf_token %}
+					<input
+						type="text"
+						name="sname"
+						class="form-control"
+						placeholder="Last Name"
+					/>
+					<input
+						type="text"
+						name="code"
+						class="form-control"
+						placeholder="code"
+					/>
+					<input
+						type="password"
+						name="pw"
+						class="form-control"
+						placeholder="Password"
+					/>
+					<a href="/" class="forgot-password">Forgot Password?</a>
+					<input
+						type="submit"
+						value="Continue"
+						class="register-btn"
+					/>
+				</form>
+			</div>
+{% endblock %}

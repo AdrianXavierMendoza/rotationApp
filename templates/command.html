@@ -1,0 +1,96 @@
+{% extends 'main.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/command.css' %}" type="text/css" />
+{% endblock %}{% block content %}
+
+<div class="content">
+	<div class="window">
+		<div class="command_form">
+			<form action="/command/add_Crew" method="POST">
+				{% csrf_token %}
+				<p>Add a crew member</p>
+				<input type="text" name="fname" class="form-control" placeholder="First Name" />
+				<button type="submit" class="">Add</button>
+			</form>
+
+			<form action="/command/add_Task" method="POST">
+				{% csrf_token %}
+				<p>Add a task</p>
+				<input type="text" name="task" class="form-control" placeholder="Task" />
+				<button type="submit" class="">Add</button>
+			</form>
+		</div>
+		<div class="command_table">
+			<table>
+				<tr>
+					<th></th>
+					<th>Name</th>
+
+					{% for task in all_tasks %}
+
+					<th>
+						{{ task.task }}
+						<a href="/remove_Task/{{ task.id }}">Remove</a>
+					</th>
+
+					{% endfor %}
+				</tr>
+
+				{% for crew in all_crew %}
+
+				<tr>
+					{% if crew.present == True %}
+					<td>
+						<input
+							data-crewId="{{crew.id}}"
+							data-presence="checked"
+							type="checkbox"
+							name="tardy"
+							id="{{crew.id}}"
+							class="update-presence"
+							checked="checked"
+						/>
+					</td>
+					{% else %}
+					<td>
+						<input
+							data-crewId="{{crew.id}}"
+							data-presence="unchecked"
+							type="checkbox"
+							name="tardy"
+							id="{{crew.id}}"
+							class="update-presence"
+						/>
+					</td>
+					{% endif %}
+					<td>
+						{{ crew.name }} [{{crew.id}}]
+						<a href="/remove_Crew/{{ crew.id }}">Remove</a>
+					</td>
+					{% for stat in crew.crewStatus.all %}
+					<td>
+						<form action="/command/update_Status/{{ stat.id }}" method="POST">
+							{% csrf_token %}
+							<select class="status" name="status">
+								{% for size in status_options %} {% if size.0 == stat.status %}
+								<option value="{{ size.0 }}" selected>{{ size.0 }}</option>
+								{% else %}
+								<option value="{{ size.0 }}">{{ size.0 }}</option>
+								{% endif %} {% endfor %}
+								<!-- <option value="{{ stat.status }}">
+												{{ stat.status }}
+											</option> -->
+							</select>
+							<input type="submit" value="Update" class="register-btn" />
+						</form>
+						<!-- {{ stat.status }} -->
+					</td>
+					{% endfor %}
+				</tr>
+
+				{% endfor %}
+			</table>
+			<!-- {{status_options}} -->
+		</div>
+	</div>
+</div>
+{% endblock %}

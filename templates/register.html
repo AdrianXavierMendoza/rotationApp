@@ -1,0 +1,30 @@
+{% extends 'main.html' %} {% load static %} {% block css %}
+<link rel="stylesheet" href="{% static 'css/register_login.css' %}" type="text/css" />
+{% endblock %}{% block content %}
+
+<div class="window">
+	{% if messages %}
+	<ul class="messages">
+		{% for message in messages %}
+		<li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
+	<form action="/registration" method="POST">
+		{% csrf_token %}
+		<h1 class="h1">Registration</h1>
+		<div class="tagline">Remember to input code sent to you</div>
+		<input type="text" name="fname" class="form-control" placeholder="First Name" />
+		<input type="text" name="sname" class="form-control" placeholder="Last Name" />
+		<input type="number" name="code" class="form-control" placeholder="Input referal code" />
+		<input type="password" name="pw" class="form-control" placeholder="Password" />
+		<input
+			type="password"
+			name="confirm_pw"
+			class="form-control"
+			placeholder="Confirm Password"
+		/>
+		<input type="submit" value="Register" class="register-btn" />
+	</form>
+</div>
+{% endblock %}
